@@ -51,6 +51,3 @@ models:
         +schema: core
 
 
-seeds:
-  +database: "ALUMNO20_DEV_BRONZE_DB"
-  +schema: "ROCKET_LEAGUE"
