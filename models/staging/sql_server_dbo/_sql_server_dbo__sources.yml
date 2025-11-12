@@ -1,7 +1,7 @@
 sources:
   - name: sql_server_dbo  
     schema: sql_server_dbo  
-    database: ALUMNO20_DEV_BRONZE_DB 
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"
 
     quoting:
       database: false
@@ -71,42 +71,21 @@ sources:
             tests:
               - not_null
 
+
       - name: users
-        description: ""
+        loaded_at_field: _fivetran_synced
         columns:
           - name: user_id
-            data_type: varchar
-            description: ""
           - name: updated_at
-            data_type: timestamp_tz
-            description: ""
           - name: address_id
-            data_type: varchar
-            description: ""
           - name: last_name
-            data_type: varchar
-            description: ""
           - name: created_at
-            data_type: timestamp_tz
-            description: ""
           - name: phone_number
-            data_type: varchar
-            description: ""
           - name: total_orders
-            data_type: number
-            description: ""
           - name: first_name
-            data_type: varchar
-            description: ""
           - name: email
-            data_type: varchar
-            description: ""
           - name: _fivetran_deleted
-            data_type: boolean
-            description: ""
           - name: _fivetran_synced
-            data_type: timestamp_tz
-            description: ""
 
       - name: orders
         description: "Tabla que almacena la información de los pedidos realizados por los usuarios."
@@ -172,22 +151,8 @@ sources:
 
       - name: events
         loaded_at_field: _fivetran_synced
-        columns:
-          - name: address_id
-          - name: zipcode
-          - name: country
-          - name: address
-          - name: state
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+
 
       - name: order_items
         loaded_at_field: _fivetran_synced
-        columns:
-          - name: address_id
-          - name: zipcode
-          - name: country
-          - name: address
-          - name: state
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+

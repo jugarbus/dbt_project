@@ -38,10 +38,19 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_new_project:
     # Applies to all files under models/example/
-    example:
-      +materialized: table
+    staging:
+      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
+      google_sheets:
+        +schema: alumno_20
+      sql_server_dbo:
+        +schema: alumno_20
+
+    marts:
+      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_GOLD_DB"
+      core:
+        +schema: core
 
 
-# seeds:
-#   +database: "ALUMNO20_DEV_BRONZE_DB"
-#   +schema: "SEEDS"
+seeds:
+  +database: "ALUMNO20_DEV_BRONZE_DB"
+  +schema: "ROCKET_LEAGUE"
