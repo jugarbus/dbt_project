@@ -1,0 +1,187 @@
+sources:
+  - name: rocket_league  
+    schema: rocket_league  
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 1000, period: day}
+      error_after: {count: 1100, period: day}
+
+
+    tables:
+      - name: raw_players
+        description: "RLCS players database (all players who played a main event or a closed qualifier)."
+        columns:
+          - name: player_id
+            data_type: varchar
+            description: "octane.gg player ID. MongoDB ObjectId created Octane.gg"
+
+          - name: player_slug
+            data_type: varchar
+            description: "Player URL."
+
+          - name: player_tag
+            data_type: varchar
+            description: "Player in-game tag."
+
+          - name: player_name
+            data_type: varchar
+            description: "Player IRL name."
+
+          - name: player_country
+            data_type: varchar
+            description: "Player country."
+
+
+
+      - name: raw_main
+        description: "RLCS 2021-22 main information event by event, match by match, game by game."
+        columns:
+          - name: event_id
+            data_type: varchar
+            description: "octane.gg event ID (MongoDB idObject)."
+
+          - name: event
+            data_type: varchar
+            description: "Event name."
+
+          - name: event_split
+            data_type: varchar
+            description: "Event split / part of the season."
+
+          - name: event_region
+            data_type: varchar
+            description: "Event region."
+
+          - name: event_slug
+            data_type: varchar
+            description: "octane.gg event URL."
+
+          - name: event_start_date
+            data_type: timestamp_ntz
+            description: "Event start date."
+
+          - name: event_end_date
+            data_type: timestamp_ntz
+            description: "Event end date."
+
+          - name: event_tier
+            data_type: varchar
+            description: "Event tier / level."
+
+          - name: event_phase
+            data_type: varchar
+            description: "Event phase."
+
+          - name: prize_money
+            data_type: number
+            description: "Event prize money (not phase prize money)."
+
+          - name: stage_step
+            data_type: number
+            description: "Stage step in event phase."
+
+          - name: stage
+            data_type: varchar
+            description: "Stage name."
+
+          - name: stage_start_date
+            data_type: timestamp_ntz
+            description: "Stage start date."
+
+          - name: stage_end_date
+            data_type: timestamp_ntz
+            description: "Stage end date."
+
+          - name: stage_is_lan
+            data_type: boolean
+            description: "Is the stage in LAN?"
+
+          - name: stage_is_qualifier
+            data_type: boolean
+            description: "Is the stage a qualifier?"
+
+          - name: liquipedia_link
+            data_type: varchar
+            description: "Liquipedia Rocket League link."
+
+          - name: location_venue
+            data_type: varchar
+            description: "Event venue."
+
+          - name: location_city
+            data_type: varchar
+            description: "Event city."
+
+          - name: location_country
+            data_type: varchar
+            description: "Event country."
+
+          - name: match_id
+            data_type: varchar
+            description: "octane.gg match ID."
+
+          - name: match_slug
+            data_type: varchar
+            description: "octane.gg match URL."
+
+          - name: match_number
+            data_type: number
+            description: "Match number during stage."
+
+          - name: match_round
+            data_type: varchar
+            description: "Match round during stage."
+
+          - name: match_date
+            data_type: timestamp_ntz
+            description: "Match date."
+
+          - name: match_format
+            data_type: varchar
+            description: "Match format (best of 5 / 7)."
+
+          - name: reverse_sweep_attempt
+            data_type: boolean
+            description: "Is the match a reverse sweep attempt?"
+
+          - name: reverse_sweep
+            data_type: boolean
+            description: "Is the match a reverse sweep?"
+
+          - name: game_id
+            data_type: varchar
+            description: "octane.gg game ID."
+
+          - name: game_number
+            data_type: number
+            description: "Game number in match."
+
+          - name: game_date
+            data_type: timestamp_ntz
+            description: "Game date."
+
+          - name: game_duration
+            data_type: number
+            description: "Game duration."
+
+          - name: map_id
+            data_type: varchar
+            description: "Map ID."
+
+          - name: map_name
+            data_type: varchar
+            description: "Map name."
+
+          - name: overtime
+            data_type: boolean
+            description: "Did the game go into overtime?"
+
+          - name: ballchasing_id
+            data_type: varchar
+            description: "ballchasing.com ID (link to replay uploaded)."
